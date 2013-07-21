@@ -12,6 +12,10 @@ def getredis():
 def hello():
     return 'Hello World of Wonder and Delight!'
 
+@app.route('/test')
+def test():
+    return os.getenv('REDISTOGO_URL', 'redis://localhost:6379')
+
 @app.route('/set')
 def set():
     r = getredis()
@@ -22,3 +26,9 @@ def set():
 def get():
     r = getredis()
     return str(r.get('varname'))
+
+@app.route('/save')
+def save():
+    r = getredis()
+    r.save()
+    return 'r.save executed OK'
